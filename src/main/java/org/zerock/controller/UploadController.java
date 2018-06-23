@@ -21,7 +21,7 @@ public class UploadController {
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-	
+
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
 	public void uploadForm() {
 	}
@@ -32,17 +32,17 @@ public class UploadController {
 		logger.info("originalName: " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
 		logger.info("contentType: " + file.getContentType());
-		
+
 		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
-		model.addAttribute("savedName",savedName);
-			
+		model.addAttribute("savedName", savedName);
+
 		return "uploadResult";
 	}
-	
-	private String uploadFile(String origianlName, byte[] fileData) throws Exception{
+
+	private String uploadFile(String origianlName, byte[] fileData) throws Exception {
 		UUID uid = UUID.randomUUID();
-		String savedName = uid.toString() +"_" + origianlName;
-		File target = new File(uploadPath,savedName);
+		String savedName = uid.toString() + "_" + origianlName;
+		File target = new File(uploadPath, savedName);
 		FileCopyUtils.copy(fileData, target);
 		return savedName;
 	}
